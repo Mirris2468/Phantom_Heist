@@ -16,13 +16,12 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 currentLookAhead;
 
-    private void Start()
+    public void SetTarget(Transform newTarget)
     {
-        if (target != null)
-        {
-            targetRb = target.GetComponent<Rigidbody2D>();
-            playerMovement = target.GetComponent<PlayerMovement>();
-        }
+        target = newTarget;
+
+        targetRb = target.GetComponent<Rigidbody2D>();
+        playerMovement = target.GetComponent<PlayerMovement>();
     }
 
     private void LateUpdate()
