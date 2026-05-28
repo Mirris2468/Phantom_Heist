@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChange
   startButton: {fileID: 1792300112}
-  nextScene: SampleScene
+  nextScene: Level_Joyeria
 --- !u!4 &433056742
 Transform:
   m_ObjectHideFlags: 0

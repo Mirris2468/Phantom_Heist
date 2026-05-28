@@ -6,7 +6,13 @@ public class TestInteractable : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Debug.Log("Objeto recogido: " + gameObject.name);
+        Debug.Log("Interact ejecutado en: " + gameObject.name);
+
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager.Instance es NULL");
+            return;
+        }
 
         GameManager.Instance.Collect(collectibleType);
 
