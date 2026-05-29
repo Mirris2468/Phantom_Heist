@@ -226,11 +226,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db84975e93f395544bb767709feb1820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  patrolPoints: []
+  basePatrolPoints: []
+  alertedPatrolPoints: []
   minWaitTime: 1
   maxWaitTime: 3
   patrolSpeed: 5
-  chaseSpeed: 10
   investigateWaitTime: 2
   viewDistance: 10
   viewAngle: 90
@@ -238,6 +238,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   rotationSpeed: 10
+  detectionTime: 2
+  animator: {fileID: 0}
+  sceneToLoad: F-R-Menu
+  delayBeforeLoad: 1
 --- !u!58 &972198066499001892
 CircleCollider2D:
   m_ObjectHideFlags: 0

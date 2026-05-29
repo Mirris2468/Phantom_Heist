@@ -24,7 +24,6 @@ public class ExitZone : MonoBehaviour
         {
             activated = true;
 
-            // Activar animación
             if (animator != null)
             {
                 animator.SetTrigger("Activate");
@@ -38,10 +37,11 @@ public class ExitZone : MonoBehaviour
     {
         yield return new WaitForSeconds(delayBeforeLoad);
 
-        // Guardar resultados
-        GameManager.Instance.SaveResults();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SaveResults(true);
+        }
 
-        // Cargar escena
         SceneManager.LoadScene(sceneToLoad);
     }
 }

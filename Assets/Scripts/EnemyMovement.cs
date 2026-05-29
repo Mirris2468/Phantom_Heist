@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -15,9 +17,8 @@ public class EnemyMovement : MonoBehaviour
 
     [Header("Velocidades")]
     [SerializeField] private float patrolSpeed = 2f;
-    [SerializeField] private float chaseSpeed = 4f;
 
-    [Header("Investigacion")]
+    [Header("Investigación")]
     [SerializeField] private float investigateWaitTime = 2f;
 
     [Header("Vision")]
@@ -25,11 +26,16 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float viewAngle = 90f;
     [SerializeField] private LayerMask obstacleMask;
 
-    [Header("Knockout")]
-    [SerializeField] private float knockoutTime = 5f;
-
-    [Header("Rotacion")]
+    [Header("Rotación")]
     [SerializeField] private float rotationSpeed = 10f;
+
+    [Header("Detección")]
+    [SerializeField] private float detectionTime = 2f;
+
+    [Header("Game Over")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string sceneToLoad;
+    [SerializeField] private float delayBeforeLoad = 1f;
 
     private NavMeshAgent agent;
 
@@ -38,17 +44,15 @@ public class EnemyMovement : MonoBehaviour
     private bool waiting;
     private float waitCounter;
 
-    private Transform player;
-    private bool isChasing;
     private bool isInvestigating;
+    private bool isDetectingPlayer;
 
-    private Vector2 lastSeenPosition;
+    private bool hasSeenPlayerBefore;
 
-    private bool hasSeenPlayerBefore = false;
+    private float detectionTimer;
 
-    // KO
-    private bool isKnockedOut = false;
-    private float knockoutTimer = 0f;
+    private bool suspicionTriggered;
+    private bool gameOverTriggered;
 
     private void Awake()
     {
@@ -67,45 +71,12 @@ public class EnemyMovement : MonoBehaviour
     {
         HandleRotation();
 
-        // =========================
-        // KO (PRIORIDAD ABSOLUTA)
-        // =========================
-        if (isKnockedOut)
-        {
-            agent.ResetPath();
-
-            knockoutTimer -= Time.deltaTime;
-
-            if (knockoutTimer <= 0f)
-            {
-                RecoverFromKnockout();
-            }
-
+        if (gameOverTriggered)
             return;
-        }
 
-        // =========================
-        // CHASE
-        // =========================
-        if (player != null && isChasing)
-        {
-            if (!CanSeePlayer(player))
-            {
-                StartInvestigation(lastSeenPosition);
-                return;
-            }
-
-            agent.speed = chaseSpeed;
-            agent.SetDestination(player.position);
-
-            lastSeenPosition = player.position;
-
+        if (isDetectingPlayer)
             return;
-        }
 
-        // =========================
-        // INVESTIGACION
-        // =========================
         if (isInvestigating)
         {
             if (!agent.pathPending &&
@@ -125,9 +96,6 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        // =========================
-        // ESPERA
-        // =========================
         if (waiting)
         {
             waitCounter -= Time.deltaTime;
@@ -141,65 +109,136 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        // =========================
-        // PATRULLA
-        // =========================
         if (!agent.pathPending &&
             agent.remainingDistance < 0.2f)
         {
             waiting = true;
 
-            waitCounter = Random.Range(minWaitTime, maxWaitTime);
+            waitCounter = Random.Range(
+                minWaitTime,
+                maxWaitTime
+            );
 
             agent.ResetPath();
         }
     }
 
-    // =========================
-    // KO SYSTEM
-    // =========================
-    public void KnockOut(float duration)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        isKnockedOut = true;
-        knockoutTimer = duration;
+        if (gameOverTriggered)
+            return;
 
-        isChasing = false;
-        isInvestigating = false;
-        player = null;
+        if (!other.CompareTag("Player"))
+            return;
+
+        if (!CanSeePlayer(other.transform))
+        {
+            if (detectionTimer > 0f || isDetectingPlayer)
+            {
+                ResetDetection();
+            }
+
+            return;
+        }
+
+        detectionTimer += Time.deltaTime;
+
+        HUDManager.Instance?.ShowDetection(
+            detectionTimer,
+            detectionTime
+        );
+
+        if (!suspicionTriggered)
+        {
+            isDetectingPlayer = true;
+
+            agent.ResetPath();
+        }
+
+        // Sospecha
+        if (!suspicionTriggered &&
+            detectionTimer >= detectionTime * 0.5f)
+        {
+            suspicionTriggered = true;
+
+            hasSeenPlayerBefore = true;
+
+            GameManager.Instance?.AddSuspicion(1);
+
+            SwitchToAlertRoute();
+        }
+
+        // Game Over
+        if (detectionTimer >= detectionTime)
+        {
+            TriggerGameOver();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
+            return;
+
+        // Solo resetear si realmente detectaba
+        if (detectionTimer > 0f || isDetectingPlayer)
+        {
+            ResetDetection();
+        }
+    }
+
+    void ResetDetection()
+    {
+        bool wasDetecting = isDetectingPlayer;
+
+        detectionTimer = 0f;
+
+        isDetectingPlayer = false;
+
+        HUDManager.Instance?.HideDetection();
+
+        // Solo retomar patrulla si realmente estaba detenido
+        if (wasDetecting &&
+            !waiting &&
+            !isInvestigating &&
+            !gameOverTriggered)
+        {
+            GoToNextPatrolPoint();
+        }
+    }
+
+    public void InvestigatePosition(Vector2 position)
+    {
+        if (gameOverTriggered)
+            return;
+
+        isInvestigating = true;
+
+        isDetectingPlayer = false;
 
         waiting = false;
 
         agent.ResetPath();
+
+        agent.speed = patrolSpeed;
+
+        agent.SetDestination(position);
     }
 
-    void RecoverFromKnockout()
-    {
-        isKnockedOut = false;
-
-        // al despertar entra en alerta automáticamente
-        if (hasSeenPlayerBefore)
-        {
-            currentPointIndex = 0;
-        }
-
-        GoToNextPatrolPoint();
-    }
-
-    // =========================
-    // PATRULLA
-    // =========================
     void GoToNextPatrolPoint()
     {
         Transform[] route = hasSeenPlayerBefore
             ? alertedPatrolPoints
             : basePatrolPoints;
 
-        if (route.Length == 0)
+        if (route == null || route.Length == 0)
             return;
 
         agent.speed = patrolSpeed;
 
-        agent.SetDestination(route[currentPointIndex].position);
+        agent.SetDestination(
+            route[currentPointIndex].position
+        );
 
         currentPointIndex++;
 
@@ -210,116 +249,86 @@ public class EnemyMovement : MonoBehaviour
     void SwitchToAlertRoute()
     {
         hasSeenPlayerBefore = true;
+
         currentPointIndex = 0;
-    }
 
-    // =========================
-    // INVESTIGACION
-    // =========================
-    void StartInvestigation(Vector2 position)
-    {
-        isChasing = false;
-        player = null;
-
-        isInvestigating = true;
         waiting = false;
 
-        agent.speed = patrolSpeed;
-        agent.SetDestination(position);
-    }
+        isInvestigating = false;
 
-    public void InvestigatePosition(Vector2 position)
-    {
-        StartInvestigation(position);
-    }
-
-    // =========================
-    // DETECCION
-    // =========================
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (isKnockedOut)
-            return;
-
-        if (!other.CompareTag("Player"))
-            return;
-
-        PlayerMovement movement =
-            other.GetComponent<PlayerMovement>();
-
-        if (movement == null || movement.IsSneaking)
-            return;
-
-        if (CanSeePlayer(other.transform))
-        {
-            player = other.transform;
-            isChasing = true;
-
-            lastSeenPosition = player.position;
-            hasSeenPlayerBefore = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (!other.CompareTag("Player"))
-            return;
-
-        isChasing = false;
-        player = null;
+        isDetectingPlayer = false;
 
         GoToNextPatrolPoint();
     }
 
-    // =========================
-    // VISION
-    // =========================
+    void TriggerGameOver()
+    {
+        if (gameOverTriggered)
+            return;
+
+        gameOverTriggered = true;
+
+        agent.ResetPath();
+
+        HUDManager.Instance?.HideDetection();
+
+        if (animator != null)
+            animator.SetTrigger("Activate");
+
+        StartCoroutine(LoadScene());
+    }
+
+    IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(delayBeforeLoad);
+
+        GameManager.Instance?.SaveResults(false);
+
+        SceneManager.LoadScene(sceneToLoad);
+    }
+
     bool CanSeePlayer(Transform target)
     {
         Vector2 origin = transform.position;
 
-        Vector2 dir = target.position - transform.position;
-        float distance = dir.magnitude;
+        Vector2 dir =
+            target.position - transform.position;
 
-        if (distance > viewDistance)
+        float dist = dir.magnitude;
+
+        if (dist > viewDistance)
             return false;
 
-        Vector2 dirNorm = dir.normalized;
-
-        float angle = Vector2.Angle(transform.right, dirNorm);
+        float angle = Vector2.Angle(
+            transform.right,
+            dir.normalized
+        );
 
         if (angle > viewAngle * 0.5f)
             return false;
 
         RaycastHit2D hit = Physics2D.Raycast(
             origin,
-            dirNorm,
-            distance,
+            dir.normalized,
+            dist,
             obstacleMask
         );
 
-        if (hit.collider != null)
-            return false;
-
-        return true;
+        return hit.collider == null;
     }
 
-    // =========================
-    // ROTACION
-    // =========================
     void HandleRotation()
     {
-        Vector3 velocity = agent.velocity;
+        Vector3 vel = agent.velocity;
 
-        if (velocity.sqrMagnitude > 0.01f)
+        if (vel.sqrMagnitude > 0.01f)
         {
-            float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
-
-            Quaternion targetRot = Quaternion.Euler(0, 0, angle);
+            float ang =
+                Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
 
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
-                targetRot,
+                Quaternion.Euler(0, 0, ang),
                 rotationSpeed * Time.deltaTime
             );
         }

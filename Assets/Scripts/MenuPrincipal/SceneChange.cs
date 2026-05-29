@@ -39,6 +39,6 @@ public class SceneChange : MonoBehaviour
 
     void LoadScene()
     {
-        SceneManager.LoadScene(nextScene);
+        SceneManager.LoadScene("R-T-N-Menu");
     }
 }

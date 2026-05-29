@@ -9,6 +9,8 @@ public class ResultsUI : MonoBehaviour
     public TextMeshProUGUI suspicionText;
     public TextMeshProUGUI moneyText;
 
+    public TextMeshProUGUI runText;
+
     private void Start()
     {
         DisplayResults();
@@ -16,6 +18,9 @@ public class ResultsUI : MonoBehaviour
 
     private void DisplayResults()
     {
+        // =========================
+        // NIVEL ACTUAL
+        // =========================
         int minutes = Mathf.FloorToInt(LevelResults.levelTime / 60);
         int seconds = Mathf.FloorToInt(LevelResults.levelTime % 60);
 
@@ -30,8 +35,23 @@ public class ResultsUI : MonoBehaviour
         suspicionText.text =
             $"ALERTAS {LevelResults.suspicionLevel}/2";
 
-        //  dinero acumulado
-        moneyText.text =
-            $"DINERO {LevelResults.totalMoney} (+{LevelResults.moneyEarned})";
+        // =========================
+        // RUN COMPLETA
+        // =========================
+        int runMin = Mathf.FloorToInt(LevelResults.runTime / 60);
+        int runSec = Mathf.FloorToInt(LevelResults.runTime % 60);
+
+        if (LevelResults.moneyEarned > 0)
+        {
+            moneyText.text =
+                $"DINERO {LevelResults.totalMoney} (+{LevelResults.moneyEarned})";
+        }
+        else
+        {
+            moneyText.text =
+                $"DINERO {LevelResults.totalMoney}";
+        }
+        runText.text =
+            $"{LevelResults.runLevelsPlayed} niveles | {runMin:00}:{runSec:00}";
     }
 }

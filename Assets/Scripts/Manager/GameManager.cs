@@ -72,17 +72,14 @@ public class GameManager : MonoBehaviour
         objectiveCompleted = false;
         levelTimer = 0f;
 
-        // RESET DE ALERTA POR NIVEL
         suspicionLevel = 0;
 
         if (exitDoor != null)
             exitDoor.SetActive(false);
 
-        if (hud != null)
-        {
-            hud.UpdateObjective(currentObjectives, totalObjectives);
-            hud.UpdateExtra(currentExtras, totalExtras);
-        }
+        hud?.UpdateObjective(currentObjectives, totalObjectives);
+        hud?.UpdateExtra(currentExtras, totalExtras);
+        hud?.HideDetection(); // 🔥 importante reset UI
 
         if (scene.name == "MainMenu")
         {
@@ -90,6 +87,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // =========================
+    // OBJETIVOS
+    // =========================
     public void Collect(CollectibleType type)
     {
         switch (type)
@@ -107,11 +107,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // =========================
+    // SOSPECHA GLOBAL
+    // =========================
     public void AddSuspicion(int amount)
     {
         suspicionLevel += amount;
+
+        // opcional: podrías reflejarlo en UI global aquí
+        // hud?.UpdateSuspicion(suspicionLevel);
     }
 
+    public int GetSuspicionLevel()
+    {
+        return suspicionLevel;
+    }
+
+    // =========================
+    // OBJETIVOS COMPLETADOS
+    // =========================
     private void CheckObjectiveCompletion()
     {
         if (objectiveCompleted)
@@ -130,8 +144,14 @@ public class GameManager : MonoBehaviour
             exitDoor.SetActive(true);
     }
 
-    public void SaveResults()
+    // =========================
+    // RESULTADOS
+    // =========================
+    public void SaveResults(bool levelCompleted)
     {
+        // =========================
+        // RESULTADOS DEL NIVEL
+        // =========================
         LevelResults.levelTime = levelTimer;
 
         LevelResults.objectivesCollected = currentObjectives;
@@ -142,23 +162,46 @@ public class GameManager : MonoBehaviour
 
         LevelResults.suspicionLevel = suspicionLevel;
 
+        // =========================
+        // DINERO GANADO EN ESTE NIVEL
+        // =========================
         int levelMoney = 0;
 
-        if (currentObjectives >= totalObjectives)
-            levelMoney++;
+        // Solo ganar dinero si completó nivel
+        if (levelCompleted)
+        {
+            if (currentObjectives >= totalObjectives)
+                levelMoney++;
 
-        if (currentExtras >= totalExtras)
-            levelMoney++;
+            if (currentExtras >= totalExtras)
+                levelMoney++;
 
-        if (suspicionLevel <= 0)
-            levelMoney++;
+            if (suspicionLevel <= 0)
+                levelMoney++;
+        }
 
+        // Guardar dinero ganado este nivel
+        LevelResults.moneyEarned = levelMoney;
+
+        // Acumular dinero total de la run
         money += levelMoney;
 
-        LevelResults.moneyEarned = levelMoney;
+        // Guardar total acumulado
         LevelResults.totalMoney = money;
+
+        // =========================
+        // ESTADÍSTICAS DE RUN
+        // =========================
+        LevelResults.runLevelsPlayed++;
+
+        LevelResults.runTime += levelTimer;
+
+        LevelResults.runMoney = money;
     }
 
+    // =========================
+    // RESET
+    // =========================
     private void ResetRun()
     {
         money = 0;
