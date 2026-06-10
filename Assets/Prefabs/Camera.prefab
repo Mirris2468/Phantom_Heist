@@ -103,9 +103,10 @@ GameObject:
   - component: {fileID: 1606236621897080650}
   - component: {fileID: 6918459921310051600}
   - component: {fileID: -2603782626686077929}
+  - component: {fileID: -614429913290637305}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: Electronic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,6 +245,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0660bf9bcd0c1441b5564f1b8656937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SecurityCamera
+--- !u!114 &-614429913290637305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6784398123284873584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62881c054c89ab54b89013d3c523c66d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ElectronicDevice
 --- !u!1 &7307930561059323514
 GameObject:
   m_ObjectHideFlags: 0

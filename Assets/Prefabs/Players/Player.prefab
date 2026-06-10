@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 3032152733892120516}
   - component: {fileID: 1218471372170199115}
   - component: {fileID: 6042255561875976827}
-  - component: {fileID: 4651069580509350182}
   - component: {fileID: 1946491885129191487}
+  - component: {fileID: -5799433745551257068}
+  - component: {fileID: 3766630173585532232}
+  - component: {fileID: 8581633724123146747}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -158,22 +160,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &4651069580509350182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6090683886876411082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57ec40d3e5aefb04686f76ae7fe68dc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  walkSpeed: 5
-  runSpeed: 8
-  acceleration: 20
-  deceleration: 25
 --- !u!114 &1946491885129191487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +187,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4651069580509350182}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -225,7 +211,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Attack[/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4651069580509350182}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: OnInteract
         m_Mode: 0
@@ -257,7 +243,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Next[/Keyboard/2]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4651069580509350182}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: OnRun
         m_Mode: 0
@@ -316,3 +302,49 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-5799433745551257068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090683886876411082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79e805f598c4eb4b99def4f57eef168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkillManager
+  startingAbility1: {fileID: 0}
+  startingAbility2: {fileID: 0}
+--- !u!114 &3766630173585532232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090683886876411082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5db145a57acb8f40baf492c9e532ef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  walkSpeed: 5
+  runSpeed: 8
+  acceleration: 20
+  deceleration: 25
+  skillManager: {fileID: 0}
+  empGun: {fileID: 0}
+--- !u!114 &8581633724123146747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090683886876411082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79e805f598c4eb4b99def4f57eef168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkillManager
+  startingAbility1: {fileID: 0}
+  startingAbility2: {fileID: 0}

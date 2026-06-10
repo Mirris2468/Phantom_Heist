@@ -1,0 +1,145 @@
+using System.Collections;
+using UnityEngine;
+
+public class EMPGunSkill : MonoBehaviour, IAbility, IResettableAbility
+{
+    [Header("References")]
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform firePoint;
+
+    [Header("Usage")]
+    [SerializeField] private int maxUses = 5;
+    [SerializeField] private float cooldown = 15f;
+
+    private int currentUses;
+    private bool aiming;
+    private bool isOnCooldown;
+
+    private PlayerMovement movement;
+
+    public bool IsAiming => aiming;
+
+    private void Awake()
+    {
+        movement = GetComponent<PlayerMovement>();
+
+        currentUses = maxUses;
+
+        Debug.Log($"EMPGun Awake - Uses: {currentUses}");
+    }
+
+    // =========================
+    // CLICK IZQUIERDO
+    // =========================
+    public void Press()
+    {
+        if (currentUses <= 0)
+        {
+            Debug.Log("No EMP uses left!");
+            return;
+        }
+
+        if (isOnCooldown)
+        {
+            Debug.Log("EMP on cooldown!");
+            return;
+        }
+
+        // Primer click -> apuntar
+        if (!aiming)
+        {
+            StartAim();
+            return;
+        }
+
+        // Segundo click -> disparar
+        Fire();
+    }
+
+    // =========================
+    // CLICK DERECHO
+    // =========================
+    public void Cancel()
+    {
+        if (!aiming)
+            return;
+
+        aiming = false;
+
+        if (movement != null)
+            movement.IsAiming = false;
+
+        Debug.Log("EMP aim cancelled");
+    }
+
+    // =========================
+    // APUNTAR
+    // =========================
+    private void StartAim()
+    {
+        aiming = true;
+
+        if (movement != null)
+            movement.IsAiming = true;
+
+        Debug.Log("EMP aiming started");
+    }
+
+    // =========================
+    // DISPARAR
+    // =========================
+    private void Fire()
+    {
+        aiming = false;
+
+        if (movement != null)
+            movement.IsAiming = false;
+
+        GameObject projectile = Instantiate(
+            projectilePrefab,
+            firePoint.position,
+            Quaternion.identity
+        );
+
+        EMPProjectile emp = projectile.GetComponent<EMPProjectile>();
+
+        if (emp != null)
+        {
+            emp.Initialize(movement.AimDirection, gameObject);
+        }
+
+        currentUses--;
+
+        Debug.Log($"EMP Fired. Remaining Uses: {currentUses}");
+
+        StartCoroutine(CooldownRoutine());
+    }
+
+    // =========================
+    // COOLDOWN
+    // =========================
+    private IEnumerator CooldownRoutine()
+    {
+        isOnCooldown = true;
+
+        yield return new WaitForSeconds(cooldown);
+
+        isOnCooldown = false;
+    }
+
+    // =========================
+    // REINICIO DE NIVEL
+    // =========================
+    public void ResetUses()
+    {
+        currentUses = maxUses;
+
+        aiming = false;
+        isOnCooldown = false;
+
+        if (movement != null)
+            movement.IsAiming = false;
+
+        Debug.Log("EMP Uses Reset");
+    }
+}

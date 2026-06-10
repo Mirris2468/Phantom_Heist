@@ -131,6 +131,10 @@ public class EnemyMovement : MonoBehaviour
         if (!other.CompareTag("Player"))
             return;
 
+        PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
+        if (playerMovement != null && playerMovement.IsSneaking)
+            return;
+
         if (!CanSeePlayer(other.transform))
         {
             if (detectionTimer > 0f || isDetectingPlayer)

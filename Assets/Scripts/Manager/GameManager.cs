@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     private int totalObjectives;
     private int totalExtras;
 
+    private PlayerSkillManager skillManager ;
+
     private void Awake()
     {
         if (Instance != null)
@@ -79,7 +81,15 @@ public class GameManager : MonoBehaviour
 
         hud?.UpdateObjective(currentObjectives, totalObjectives);
         hud?.UpdateExtra(currentExtras, totalExtras);
-        hud?.HideDetection(); // 🔥 importante reset UI
+        hud?.HideDetection();
+
+        // AQUÍ VA EL FIX
+        skillManager = FindFirstObjectByType<PlayerSkillManager>();
+
+        if (skillManager != null)
+        {
+            skillManager.ResetAllUses();
+        }
 
         if (scene.name == "MainMenu")
         {

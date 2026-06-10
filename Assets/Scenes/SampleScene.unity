@@ -2430,6 +2430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HUDManager
   objectiveText: {fileID: 2092132375}
   extraText: {fileID: 685903584}
+  detectionSlider: {fileID: 0}
 --- !u!114 &2119952703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2442,8 +2443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9788bcacd06860d4ea4491618b48037f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  totalObjectives: 1
-  totalExtras: 2
   hud: {fileID: 2119952702}
   exitDoor: {fileID: 1465642396}
   money: 0
