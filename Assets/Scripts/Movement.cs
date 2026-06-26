@@ -134,6 +134,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+
+        if (finalInput.sqrMagnitude > 0.01f)
+        {
+            float angle = Mathf.Atan2(finalInput.y, finalInput.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
+
         if (IsAiming)
         {
             rb.linearVelocity = Vector2.zero;
@@ -158,6 +165,7 @@ public class PlayerMovement : MonoBehaviour
         );
 
         rb.linearVelocity = currentVelocity;
+
     }
 
     // =========================

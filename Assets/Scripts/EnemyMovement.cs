@@ -259,10 +259,6 @@ public class EnemyMovement : MonoBehaviour
         waiting = false;
 
         isInvestigating = false;
-
-        isDetectingPlayer = false;
-
-        GoToNextPatrolPoint();
     }
 
     void TriggerGameOver()
