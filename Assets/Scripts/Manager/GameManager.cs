@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
 
     public int money;
 
+    // PAUSA DEL JUEGO
+    public bool IsPaused { get; private set; }
+
     // ALERTA GLOBAL DEL NIVEL
     private int suspicionLevel;
 
@@ -76,6 +79,10 @@ public class GameManager : MonoBehaviour
 
         suspicionLevel = 0;
 
+        // Reiniciar pausa
+        IsPaused = false;
+        Time.timeScale = 1f;
+
         if (exitDoor != null)
             exitDoor.SetActive(false);
 
@@ -83,7 +90,6 @@ public class GameManager : MonoBehaviour
         hud?.UpdateExtra(currentExtras, totalExtras);
         hud?.HideDetection();
 
-        // AQUÍ VA EL FIX
         skillManager = FindFirstObjectByType<PlayerSkillManager>();
 
         if (skillManager != null)
@@ -207,6 +213,16 @@ public class GameManager : MonoBehaviour
         LevelResults.runTime += levelTimer;
 
         LevelResults.runMoney = money;
+    }
+
+    // =========================
+    // PAUSA
+    // =========================
+
+    public void SetPause(bool pause)
+    {
+        IsPaused = pause;
+        Time.timeScale = pause ? 0f : 1f;
     }
 
     // =========================
