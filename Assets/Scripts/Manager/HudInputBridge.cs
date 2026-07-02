@@ -1,7 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUDInputBridge : MonoBehaviour
 {
+    [Header("Run Button")]
+    [SerializeField] private Image runButtonImage;
+    [SerializeField] private Sprite walkSprite;
+    [SerializeField] private Sprite runSprite;
+
     public void Ability1()
     {
         PlayerMovement.LocalPlayer?.UseAbility1();
@@ -19,6 +25,13 @@ public class HUDInputBridge : MonoBehaviour
 
     public void ToggleRun()
     {
-        PlayerMovement.LocalPlayer?.ToggleRun();
+        if (PlayerMovement.LocalPlayer == null)
+            return;
+
+        PlayerMovement.LocalPlayer.ToggleRun();
+
+        runButtonImage.sprite = PlayerMovement.LocalPlayer.IsRunning
+            ? runSprite
+            : walkSprite;
     }
 }
