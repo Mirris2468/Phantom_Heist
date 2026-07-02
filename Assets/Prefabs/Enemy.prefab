@@ -81,12 +81,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1527804105037552040, guid: 395e4da0b07338b4ea06ac645ae9647c, type: 3}
+  m_Sprite: {fileID: -8485577035901901948, guid: 7a8ebad9044ebc847af6bc4dd64810e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6875, y: 0.53125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -177,12 +177,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1527804105037552040, guid: 395e4da0b07338b4ea06ac645ae9647c, type: 3}
+  m_Sprite: {fileID: -8485577035901901948, guid: 7a8ebad9044ebc847af6bc4dd64810e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6875, y: 0.53125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -238,6 +238,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   rotationSpeed: 10
+  spriteRenderer: {fileID: 7713557301437036046}
+  idleSprite: {fileID: -8485577035901901948, guid: 7a8ebad9044ebc847af6bc4dd64810e0, type: 3}
+  walkSprite1: {fileID: -4931618209042276776, guid: 7a8ebad9044ebc847af6bc4dd64810e0, type: 3}
+  walkSprite2: {fileID: -8428563456975324975, guid: 7a8ebad9044ebc847af6bc4dd64810e0, type: 3}
+  walkFrameDuration: 0.14
   detectionTime: 2
   animator: {fileID: 0}
   sceneToLoad: F-R-Menu

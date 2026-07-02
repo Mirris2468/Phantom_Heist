@@ -12,6 +12,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float acceleration = 20f;
     [SerializeField] private float deceleration = 25f;
 
+    [Header("Animation")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    [SerializeField] private Sprite idleSprite;
+    [SerializeField] private Sprite walkSprite1;
+    [SerializeField] private Sprite walkSprite2;
+    [SerializeField] private Sprite aimSprite;
+
+    [SerializeField] private float walkFrameDuration = 0.18f;
+
+    private float walkTimer;
+    private bool walkFrame;
+
     private Rigidbody2D rb;
 
     private Vector2 moveInput;
@@ -121,6 +134,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (finalInput != Vector2.zero)
             AimDirection = finalInput.normalized;
+
+        HandleWalkAnimation();
     }
 
     // =========================
@@ -191,5 +206,42 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.CompareTag("SneakZone"))
             isSneaking = false;
+    }
+
+    // =========================
+    // ANIMATION
+    // =========================
+
+    void HandleWalkAnimation()
+    {
+        bool isMoving = finalInput.sqrMagnitude > 0.01f;
+
+        if (IsAiming)
+        {
+            spriteRenderer.sprite = aimSprite;
+
+            walkTimer = 0f;
+            walkFrame = false;
+            return;
+        }
+
+        if (!isMoving)
+        {
+            spriteRenderer.sprite = idleSprite;
+
+            walkTimer = 0f;
+            walkFrame = false;
+            return;
+        }
+        walkTimer += Time.deltaTime;
+
+        if (walkTimer >= walkFrameDuration)
+        {
+            walkTimer = 0f;
+            walkFrame = !walkFrame;
+
+            spriteRenderer.sprite =
+                walkFrame ? walkSprite1 : walkSprite2;
+        }
     }
 }

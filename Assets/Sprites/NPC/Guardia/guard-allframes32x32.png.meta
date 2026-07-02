@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 395e4da0b07338b4ea06ac645ae9647c
+guid: 7a8ebad9044ebc847af6bc4dd64810e0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1527804105037552040
-    second: guard-idle-Sheet32x32_0
+      213: -8485577035901901948
+    second: guard-allframes32x32_0
+  - first:
+      213: -4931618209042276776
+    second: guard-allframes32x32_1
+  - first:
+      213: -8428563456975324975
+    second: guard-allframes32x32_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -74,8 +80,8 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
+    textureFormat: 4
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -96,11 +102,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: guard-idle-Sheet32x32_0
+      name: guard-allframes32x32_0
       rect:
         serializedVersion: 2
         x: 5
@@ -115,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8566ad8d2462ccae0800000000000000
-      internalID: -1527804105037552040
+      spriteID: 483ead4f4ac2d3a80800000000000000
+      internalID: -8485577035901901948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guard-allframes32x32_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 8
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85edf222e5f5f8bb0800000000000000
+      internalID: -4931618209042276776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guard-allframes32x32_2
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 8
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d8b52c313ab70b80800000000000000
+      internalID: -8428563456975324975
       vertices: []
       indices: 
       edges: []
@@ -135,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      guard-idle-Sheet32x32_0: -1527804105037552040
+      guard-allframes32x32_0: -8485577035901901948
+      guard-allframes32x32_1: -4931618209042276776
+      guard-allframes32x32_2: -8428563456975324975
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

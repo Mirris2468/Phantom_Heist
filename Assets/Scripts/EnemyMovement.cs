@@ -29,6 +29,19 @@ public class EnemyMovement : MonoBehaviour
     [Header("Rotación")]
     [SerializeField] private float rotationSpeed = 10f;
 
+    [Header("Animación")]
+
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    [SerializeField] private Sprite idleSprite;
+    [SerializeField] private Sprite walkSprite1;
+    [SerializeField] private Sprite walkSprite2;
+
+    [SerializeField] private float walkFrameDuration = 0.18f;
+
+    private float walkTimer;
+    private bool walkFrame;
+
     [Header("Detección")]
     [SerializeField] private float detectionTime = 2f;
 
@@ -51,6 +64,8 @@ public class EnemyMovement : MonoBehaviour
 
     private float detectionTimer;
 
+    private Transform detectedPlayer;
+
     private bool suspicionTriggered;
     private bool gameOverTriggered;
 
@@ -70,6 +85,7 @@ public class EnemyMovement : MonoBehaviour
     private void Update()
     {
         HandleRotation();
+        HandleWalkAnimation();
 
         if (gameOverTriggered)
             return;
@@ -152,11 +168,15 @@ public class EnemyMovement : MonoBehaviour
             detectionTime
         );
 
-        if (!suspicionTriggered)
+        if (!isDetectingPlayer)
         {
             isDetectingPlayer = true;
 
+            detectedPlayer = other.transform;
+
             agent.ResetPath();
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
         }
 
         // Sospecha
@@ -196,12 +216,13 @@ public class EnemyMovement : MonoBehaviour
         bool wasDetecting = isDetectingPlayer;
 
         detectionTimer = 0f;
-
         isDetectingPlayer = false;
+
+        detectedPlayer = null;
+        agent.isStopped = false;
 
         HUDManager.Instance?.HideDetection();
 
-        // Solo retomar patrulla si realmente estaba detenido
         if (wasDetecting &&
             !waiting &&
             !isInvestigating &&
@@ -238,6 +259,7 @@ public class EnemyMovement : MonoBehaviour
         if (route == null || route.Length == 0)
             return;
 
+        agent.isStopped = false;
         agent.speed = patrolSpeed;
 
         agent.SetDestination(
@@ -319,6 +341,24 @@ public class EnemyMovement : MonoBehaviour
 
     void HandleRotation()
     {
+        if (isDetectingPlayer && detectedPlayer != null)
+        {
+            Vector2 dir = detectedPlayer.position - transform.position;
+
+            if (dir.sqrMagnitude > 0.001f)
+            {
+                float ang = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    Quaternion.Euler(0, 0, ang),
+                    rotationSpeed * Time.deltaTime
+                );
+            }
+
+            return;
+        }
+
         Vector3 vel = agent.velocity;
 
         if (vel.sqrMagnitude > 0.01f)
@@ -331,6 +371,35 @@ public class EnemyMovement : MonoBehaviour
                 Quaternion.Euler(0, 0, ang),
                 rotationSpeed * Time.deltaTime
             );
+        }
+    }
+
+    void HandleWalkAnimation()
+    {
+        bool isMoving =
+            !agent.isStopped &&
+            agent.velocity.sqrMagnitude > 0.01f;
+
+        if (!isMoving)
+        {
+            if (spriteRenderer.sprite != idleSprite)
+                spriteRenderer.sprite = idleSprite;
+
+            walkTimer = 0f;
+            return;
+        }
+
+        walkTimer += Time.deltaTime;
+
+        if (walkTimer >= walkFrameDuration)
+        {
+            walkTimer = 0f;
+
+            walkFrame = !walkFrame;
+
+            spriteRenderer.sprite = walkFrame
+                ? walkSprite1
+                : walkSprite2;
         }
     }
 }

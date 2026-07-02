@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.001, y: 0.0205, z: 0}
-  m_LocalScale: {x: 5.2961555, y: 5.256681, z: 9.5825}
+  m_LocalScale: {x: 1.8727901, y: 1.8588314, z: 3.388498}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1145583779764557943}
@@ -410,6 +410,12 @@ MonoBehaviour:
   runSpeed: 8
   acceleration: 20
   deceleration: 25
+  spriteRenderer: {fileID: 7382359003201143734}
+  idleSprite: {fileID: 6529217171467317897, guid: 811d2c299abc7f8439bbe9cbd71b6f46, type: 3}
+  walkSprite1: {fileID: 4823977937692627385, guid: 811d2c299abc7f8439bbe9cbd71b6f46, type: 3}
+  walkSprite2: {fileID: -454486318706166481, guid: 811d2c299abc7f8439bbe9cbd71b6f46, type: 3}
+  aimSprite: {fileID: -5641356546227570814, guid: 7970a4f447d49c8438924206500a7035, type: 3}
+  walkFrameDuration: 0.18
   skillManager: {fileID: 2826051788726828800}
   empGun: {fileID: -7694645518920012278}
 --- !u!114 &2826051788726828800
