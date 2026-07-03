@@ -17,7 +17,14 @@ public class GameManager : MonoBehaviour
     private bool objectiveCompleted;
     private float levelTimer;
 
+    public int selectedCharacter;
     public int money;
+
+    public bool firstSkillFree = true;
+
+    [Header("Equipped Skills")]
+    public SkillData slot1Skill;
+    public SkillData slot2Skill;
 
     // PAUSA DEL JUEGO
     public bool IsPaused { get; private set; }
@@ -28,7 +35,7 @@ public class GameManager : MonoBehaviour
     private int totalObjectives;
     private int totalExtras;
 
-    private PlayerSkillManager skillManager ;
+    private PlayerSkillManager skillManager;
 
     private void Awake()
     {
@@ -40,6 +47,9 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        slot1Skill = null;
+        slot2Skill = null;
     }
 
     private void Update()
@@ -106,6 +116,7 @@ public class GameManager : MonoBehaviour
     // =========================
     // OBJETIVOS
     // =========================
+
     public void Collect(CollectibleType type)
     {
         switch (type)
@@ -126,12 +137,10 @@ public class GameManager : MonoBehaviour
     // =========================
     // SOSPECHA GLOBAL
     // =========================
+
     public void AddSuspicion(int amount)
     {
         suspicionLevel += amount;
-
-        // opcional: podrías reflejarlo en UI global aquí
-        // hud?.UpdateSuspicion(suspicionLevel);
     }
 
     public int GetSuspicionLevel()
@@ -142,6 +151,7 @@ public class GameManager : MonoBehaviour
     // =========================
     // OBJETIVOS COMPLETADOS
     // =========================
+
     private void CheckObjectiveCompletion()
     {
         if (objectiveCompleted)
@@ -163,11 +173,9 @@ public class GameManager : MonoBehaviour
     // =========================
     // RESULTADOS
     // =========================
+
     public void SaveResults(bool levelCompleted)
     {
-        // =========================
-        // RESULTADOS DEL NIVEL
-        // =========================
         LevelResults.levelTime = levelTimer;
 
         LevelResults.objectivesCollected = currentObjectives;
@@ -178,12 +186,8 @@ public class GameManager : MonoBehaviour
 
         LevelResults.suspicionLevel = suspicionLevel;
 
-        // =========================
-        // DINERO GANADO EN ESTE NIVEL
-        // =========================
         int levelMoney = 0;
 
-        // Solo ganar dinero si completó nivel
         if (levelCompleted)
         {
             if (currentObjectives >= totalObjectives)
@@ -196,22 +200,14 @@ public class GameManager : MonoBehaviour
                 levelMoney++;
         }
 
-        // Guardar dinero ganado este nivel
         LevelResults.moneyEarned = levelMoney;
 
-        // Acumular dinero total de la run
         money += levelMoney;
 
-        // Guardar total acumulado
         LevelResults.totalMoney = money;
 
-        // =========================
-        // ESTADÍSTICAS DE RUN
-        // =========================
         LevelResults.runLevelsPlayed++;
-
         LevelResults.runTime += levelTimer;
-
         LevelResults.runMoney = money;
     }
 
@@ -226,15 +222,25 @@ public class GameManager : MonoBehaviour
     }
 
     // =========================
-    // RESET
+    // RESET RUN
     // =========================
+
     private void ResetRun()
     {
         money = 0;
+
         currentObjectives = 0;
         currentExtras = 0;
+
         levelTimer = 0f;
+
         objectiveCompleted = false;
+
         suspicionLevel = 0;
+
+        firstSkillFree = true;
+
+        slot1Skill = null;
+        slot2Skill = null;
     }
 }

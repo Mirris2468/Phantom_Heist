@@ -16,6 +16,11 @@ public class ResultsUI : MonoBehaviour
         DisplayResults();
     }
 
+    private void Update()
+    {
+        UpdateMoney();
+    }
+
     private void DisplayResults()
     {
         // =========================
@@ -40,18 +45,25 @@ public class ResultsUI : MonoBehaviour
         // =========================
         int runMin = Mathf.FloorToInt(LevelResults.runTime / 60);
         int runSec = Mathf.FloorToInt(LevelResults.runTime % 60);
+        UpdateMoney();
+        runText.text =
+            $"{LevelResults.runLevelsPlayed} niveles | {runMin:00}:{runSec:00}";
+    }
+
+    private void UpdateMoney()
+    {
+        if (GameManager.Instance == null)
+            return;
 
         if (LevelResults.moneyEarned > 0)
         {
             moneyText.text =
-                $"DINERO {LevelResults.totalMoney} (+{LevelResults.moneyEarned})";
+                $"DINERO {GameManager.Instance.money} (+{LevelResults.moneyEarned})";
         }
         else
         {
             moneyText.text =
-                $"DINERO {LevelResults.totalMoney}";
+                $"DINERO {GameManager.Instance.money}";
         }
-        runText.text =
-            $"{LevelResults.runLevelsPlayed} niveles | {runMin:00}:{runSec:00}";
     }
 }

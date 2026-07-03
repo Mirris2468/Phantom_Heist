@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
     private IInteractable currentInteractable;
 
     public PlayerSkillManager skillManager;
-    public EMPGunSkill empGun;
 
     public bool IsAiming { get; set; }
     public Vector2 AimDirection { get; private set; } = Vector2.right;

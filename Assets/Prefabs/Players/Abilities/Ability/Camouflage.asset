@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe5e4057c32ef594c96e7594c1728e64, type: 3}
-  m_Name: EMPGun
+  m_Name: Camouflage
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  skillName: EMP
-  description: Herramienta a distancia capaz de desactivar multiples dispositivos
-    teconologicos en el momento de impacto en contra de una pared cubriendo un area
-    en su alrededor!
-  mejora: Cambia la bateria integrada para permitir el DOBLE de usos
-  icon: {fileID: -5641356546227570814, guid: 7970a4f447d49c8438924206500a7035, type: 3}
+  skillName: Camuflaje
+  description: "Escondete a la vista de todos con este artilugio! \nEs lo ultimo
+    de tecnologia en el espionaje e infiltraciones en cubierto!"
+  mejora: Mejora el material permitiendo utilizar este artilugio el DOBLE de rapido!
+  icon: {fileID: 0}
   cost: 5
-  cooldown: 15
+  cooldown: 30
   upgradedCooldown: 15
   uses: 5
-  upgradedUses: 10
-  skillType: 3
+  upgradedUses: 5
+  skillType: 0

@@ -23,7 +23,7 @@ public class SceneChange : MonoBehaviour
 
     public void StartGame()
     {
-        PlayerPrefs.SetInt("SelectedCharacter", selectedCharacter);
+        GameManager.Instance.selectedCharacter = selectedCharacter;
         Invoke(nameof(LoadScene), 1.5f);
     }
 

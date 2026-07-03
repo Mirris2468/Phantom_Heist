@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class PlayerSkillManager : MonoBehaviour
 {
-    [Header("Starting Skills")]
-    [SerializeField] private MonoBehaviour startingAbility1;
-    [SerializeField] private MonoBehaviour startingAbility2;
+    [Header("Abilities")]
+    //[SerializeField] private PunchSkill punchSkill;
+    //[SerializeField] private TrankGunSkill trankGunSkill;
+    [SerializeField] private EMPGunSkill empGunSkill;
+    [SerializeField] private HammerSkill hammerSkill;
 
     private IAbility ability1;
     private IAbility ability2;
@@ -12,13 +14,46 @@ public class PlayerSkillManager : MonoBehaviour
     private IResettableAbility reset1;
     private IResettableAbility reset2;
 
-    private void Awake()
+    private void Start()
     {
-        ability1 = startingAbility1 as IAbility;
-        ability2 = startingAbility2 as IAbility;
+        EquipSkillsFromGameManager();
+    }
 
-        reset1 = startingAbility1 as IResettableAbility;
-        reset2 = startingAbility2 as IResettableAbility;
+    // =========================
+    // EQUIP SKILLS
+    // =========================
+
+    private void EquipSkillsFromGameManager()
+    {
+        if (GameManager.Instance == null)
+            return;
+
+        SetAbility1(GetAbility(GameManager.Instance.slot1Skill));
+        SetAbility2(GetAbility(GameManager.Instance.slot2Skill));
+    }
+
+    private IAbility GetAbility(SkillData skillData)
+    {
+        if (skillData == null)
+            return null;
+
+        switch (skillData.skillType)
+        {
+            //case SkillType.Punch:
+            //    return punchSkill;
+
+            //case SkillType.TrankGun:
+            //    return trankGunSkill;
+
+            case SkillType.EMPGun:
+                return empGunSkill;
+
+            case SkillType.Hammer:
+                return hammerSkill;
+
+            default:
+                return null;
+        }
     }
 
     // =========================
@@ -42,7 +77,7 @@ public class PlayerSkillManager : MonoBehaviour
     }
 
     // =========================
-    // RESETS (NEW RUN / SCENE)
+    // RESETS
     // =========================
 
     public void ResetAllUses()
@@ -52,22 +87,18 @@ public class PlayerSkillManager : MonoBehaviour
     }
 
     // =========================
-    // ABILITY MANAGEMENT (ROGUELIKE SYSTEM)
+    // ABILITY MANAGEMENT
     // =========================
 
     public void SetAbility1(IAbility ability)
     {
         ability1 = ability;
-
-        if (ability is IResettableAbility resettable)
-            reset1 = resettable;
+        reset1 = ability as IResettableAbility;
     }
 
     public void SetAbility2(IAbility ability)
     {
         ability2 = ability;
-
-        if (ability is IResettableAbility resettable)
-            reset2 = resettable;
+        reset2 = ability as IResettableAbility;
     }
 }

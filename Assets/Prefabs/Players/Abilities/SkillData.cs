@@ -9,6 +9,9 @@ public class SkillData : ScriptableObject
     [TextArea(3, 5)]
     public string description;
 
+    [TextArea(3, 5)]
+    public string mejora;
+
     public Sprite icon;
 
     [Header("Shop")]
@@ -16,7 +19,9 @@ public class SkillData : ScriptableObject
 
     [Header("Skill Values")]
     public int cooldown;
+    public int upgradedCooldown;
     public int uses;
+    public int upgradedUses;
 
     [Header("Type")]
     public SkillType skillType;
@@ -24,6 +29,8 @@ public class SkillData : ScriptableObject
 
 public enum SkillType
 {
+    None,
+
     Punch,
     TrankGun,
     EMPGun,

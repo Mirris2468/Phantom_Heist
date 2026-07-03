@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe5e4057c32ef594c96e7594c1728e64, type: 3}
+  m_Name: Distraction
+  m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  skillName: Distraccion
+  description: Lanza un objeto lo suficientemente ruidoso como para atraer al guardia
+    mas cercano!
+  mejora: Trae contigo una bolsa llena de objetos y lanza el DOBLE de objetos!
+  icon: {fileID: 0}
+  cost: 10
+  cooldown: 20
+  upgradedCooldown: 20
+  uses: 3
+  upgradedUses: 6
+  skillType: 0

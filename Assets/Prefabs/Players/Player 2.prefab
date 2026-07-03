@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 4878042694518511470}
   - component: {fileID: 2826051788726828800}
   - component: {fileID: -7694645518920012278}
+  - component: {fileID: -4342022290572071227}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Player
@@ -417,7 +418,6 @@ MonoBehaviour:
   aimSprite: {fileID: -5641356546227570814, guid: 7970a4f447d49c8438924206500a7035, type: 3}
   walkFrameDuration: 0.18
   skillManager: {fileID: 2826051788726828800}
-  empGun: {fileID: -7694645518920012278}
 --- !u!114 &2826051788726828800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,8 +430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79e805f598c4eb4b99def4f57eef168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSkillManager
-  startingAbility1: {fileID: -7694645518920012278}
-  startingAbility2: {fileID: 0}
+  empGunSkill: {fileID: -7694645518920012278}
+  hammerSkill: {fileID: -4342022290572071227}
 --- !u!114 &-7694645518920012278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,3 +448,21 @@ MonoBehaviour:
   firePoint: {fileID: 2950157717459893834}
   maxUses: 5
   cooldown: 15
+--- !u!114 &-4342022290572071227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090683886876411082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32c334770809c044a504a195b223fb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HammerSkill
+  maxUses: 3
+  cooldown: 2
+  breakDistance: 1.5
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
