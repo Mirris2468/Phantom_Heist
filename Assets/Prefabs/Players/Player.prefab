@@ -15,7 +15,9 @@ GameObject:
   - component: {fileID: 1946491885129191487}
   - component: {fileID: -5799433745551257068}
   - component: {fileID: 3766630173585532232}
-  - component: {fileID: 8581633724123146747}
+  - component: {fileID: -5281440445938578609}
+  - component: {fileID: -1067248442148208149}
+  - component: {fileID: 7177488302932242051}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -314,8 +316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79e805f598c4eb4b99def4f57eef168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSkillManager
-  startingAbility1: {fileID: 0}
-  startingAbility2: {fileID: 0}
+  trankGunSkill: {fileID: -5281440445938578609}
+  empGunSkill: {fileID: 7177488302932242051}
+  hammerSkill: {fileID: -1067248442148208149}
 --- !u!114 &3766630173585532232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,9 +335,14 @@ MonoBehaviour:
   runSpeed: 8
   acceleration: 20
   deceleration: 25
+  spriteRenderer: {fileID: 0}
+  idleSprite: {fileID: 0}
+  walkSprite1: {fileID: 0}
+  walkSprite2: {fileID: 0}
+  aimSprite: {fileID: 0}
+  walkFrameDuration: 0.18
   skillManager: {fileID: 0}
-  empGun: {fileID: 0}
---- !u!114 &8581633724123146747
+--- !u!114 &-5281440445938578609
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -343,8 +351,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 6090683886876411082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79e805f598c4eb4b99def4f57eef168, type: 3}
+  m_Script: {fileID: 11500000, guid: 15bd2e7a5ca304c4599624dd91625a28, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkillManager
-  startingAbility1: {fileID: 0}
-  startingAbility2: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::TrankGunSkill
+  projectilePrefab: {fileID: 5820306186634295673, guid: 951d2520ee89f8448b2020f2c6e8700c, type: 3}
+  firePoint: {fileID: 0}
+  maxUses: 5
+  cooldown: 15
+--- !u!114 &-1067248442148208149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090683886876411082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32c334770809c044a504a195b223fb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HammerSkill
+  maxUses: 3
+  cooldown: 2
+  breakDistance: 1.5
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &7177488302932242051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090683886876411082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84ab74943a591d4a97e82031556a5fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EMPGunSkill
+  projectilePrefab: {fileID: 1912557163128445589, guid: 3116108bd0189cd4087609d5798d96c1, type: 3}
+  firePoint: {fileID: 0}
+  maxUses: 5
+  cooldown: 15

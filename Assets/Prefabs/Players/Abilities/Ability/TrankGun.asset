@@ -21,8 +21,8 @@ MonoBehaviour:
   mejora: Mejora la cuerda para poder lanzar tus dardos el DOBLE de RAPIDO
   icon: {fileID: 0}
   cost: 8
-  cooldown: 25
-  upgradedCooldown: 10
+  cooldown: 12
+  upgradedCooldown: 6
   uses: 3
   upgradedUses: 3
   skillType: 2

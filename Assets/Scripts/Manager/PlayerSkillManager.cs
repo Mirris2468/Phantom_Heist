@@ -4,7 +4,7 @@ public class PlayerSkillManager : MonoBehaviour
 {
     [Header("Abilities")]
     //[SerializeField] private PunchSkill punchSkill;
-    //[SerializeField] private TrankGunSkill trankGunSkill;
+    [SerializeField] private TrankGunSkill trankGunSkill;
     [SerializeField] private EMPGunSkill empGunSkill;
     [SerializeField] private HammerSkill hammerSkill;
 
@@ -42,8 +42,8 @@ public class PlayerSkillManager : MonoBehaviour
             //case SkillType.Punch:
             //    return punchSkill;
 
-            //case SkillType.TrankGun:
-            //    return trankGunSkill;
+            case SkillType.TrankGun:
+                return trankGunSkill;
 
             case SkillType.EMPGun:
                 return empGunSkill;

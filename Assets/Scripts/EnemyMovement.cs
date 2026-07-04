@@ -50,6 +50,10 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private string sceneToLoad;
     [SerializeField] private float delayBeforeLoad = 1f;
 
+
+    [Header("Collider")]
+    [SerializeField] private Collider2D bodyCollider;
+
     private NavMeshAgent agent;
 
     private int currentPointIndex = 0;
@@ -65,6 +69,8 @@ public class EnemyMovement : MonoBehaviour
     private float detectionTimer;
 
     private Transform detectedPlayer;
+
+    private bool isKnockedOut;
 
     private bool suspicionTriggered;
     private bool gameOverTriggered;
@@ -84,6 +90,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+        if (isKnockedOut)
+            return;
+
         HandleRotation();
         HandleWalkAnimation();
 
@@ -141,6 +150,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        if (isKnockedOut)
+            return;
+
         if (gameOverTriggered)
             return;
 
@@ -201,6 +213,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (isKnockedOut)
+            return;
+
         if (!other.CompareTag("Player"))
             return;
 
@@ -401,5 +416,43 @@ public class EnemyMovement : MonoBehaviour
                 ? walkSprite1
                 : walkSprite2;
         }
+    }
+
+    public void Knockout(float duration)
+    {
+        if (gameOverTriggered)
+            return;
+
+        StopAllCoroutines();
+
+        StartCoroutine(KnockoutRoutine(duration));
+    }
+
+    private IEnumerator KnockoutRoutine(float duration)
+    {
+        isKnockedOut = true;
+
+        detectionTimer = 0f;
+        isDetectingPlayer = false;
+        detectedPlayer = null;
+
+        waiting = false;
+        isInvestigating = false;
+
+        HUDManager.Instance?.HideDetection();
+
+        agent.ResetPath();
+        agent.isStopped = true;
+        agent.velocity = Vector2.zero;
+        bodyCollider.enabled = false;
+
+        yield return new WaitForSeconds(duration);
+
+        bodyCollider.enabled = true;
+        isKnockedOut = false;
+
+        agent.isStopped = false;
+
+        GoToNextPatrolPoint();
     }
 }
