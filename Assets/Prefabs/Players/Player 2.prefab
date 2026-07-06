@@ -110,6 +110,8 @@ GameObject:
   - component: {fileID: -4342022290572071227}
   - component: {fileID: -1063727427045559688}
   - component: {fileID: 1313102834366109094}
+  - component: {fileID: 1293776345365744568}
+  - component: {fileID: 8708295391450923901}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Player
@@ -436,6 +438,8 @@ MonoBehaviour:
   empGunSkill: {fileID: -7694645518920012278}
   hammerSkill: {fileID: -4342022290572071227}
   distractionSkill: {fileID: 1313102834366109094}
+  camouflageSkill: {fileID: 1293776345365744568}
+  adrenalineSkill: {fileID: 8708295391450923901}
 --- !u!114 &-7694645518920012278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,3 +506,35 @@ MonoBehaviour:
   firePoint: {fileID: 2950157717459893834}
   maxUses: 5
   cooldown: 15
+--- !u!114 &1293776345365744568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090683886876411082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c519b66d69da1d4084bff9a3c1ad9a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CamouflageSkill
+  sneakZonePrefab: {fileID: 7529204117988711744, guid: 74d48c8dd0861934db6e1c42f187e45a, type: 3}
+  maxUses: 3
+  duration: 5
+  cooldown: 10
+--- !u!114 &8708295391450923901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090683886876411082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e25b78409db11478f64fdf3ab37e49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdrenalineSkill
+  maxUses: 3
+  duration: 5
+  cooldown: 10
+  speedMultiplier: 2

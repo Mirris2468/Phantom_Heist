@@ -8,6 +8,8 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField] private EMPGunSkill empGunSkill;
     [SerializeField] private HammerSkill hammerSkill;
     [SerializeField] private DistractionSkill distractionSkill;
+    [SerializeField] private CamouflageSkill camouflageSkill;
+    [SerializeField] private AdrenalineSkill adrenalineSkill;
 
     private IAbility ability1;
     private IAbility ability2;
@@ -54,6 +56,12 @@ public class PlayerSkillManager : MonoBehaviour
 
             case SkillType.Distraction:
                 return distractionSkill;
+
+            case SkillType.Camouflage:
+                return camouflageSkill;
+
+            case SkillType.Adrenaline:
+                return adrenalineSkill;
 
             default:
                 return null;

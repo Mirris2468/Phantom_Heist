@@ -35,5 +35,7 @@ public enum SkillType
     TrankGun,
     EMPGun,
     Hammer,
-    Distraction
+    Distraction,
+    Camouflage,
+    Adrenaline
 }

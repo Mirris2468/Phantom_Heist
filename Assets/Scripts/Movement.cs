@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isRunning;
     private bool isSneaking;
+    private float speedMultiplier = 1f;
 
     private IInteractable currentInteractable;
 
@@ -166,6 +167,8 @@ public class PlayerMovement : MonoBehaviour
         if (isSneaking)
             speed *= 0.5f;
 
+        speed *= speedMultiplier;
+
         Vector2 targetVelocity = finalInput * speed;
 
         float smoothness = finalInput != Vector2.zero
@@ -243,4 +246,10 @@ public class PlayerMovement : MonoBehaviour
                 walkFrame ? walkSprite1 : walkSprite2;
         }
     }
+
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
+    }
+
 }
