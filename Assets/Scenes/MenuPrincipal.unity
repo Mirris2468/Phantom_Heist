@@ -3137,7 +3137,7 @@ MonoBehaviour:
   exitDoor: {fileID: 0}
   selectedCharacter: 0
   money: 0
-  defaultSlot1Skill: {fileID: 11400000, guid: cccedcba866ba3d4db6a474e48968a4c, type: 2}
+  firstSkillFree: 1
   slot1Skill: {fileID: 0}
   slot2Skill: {fileID: 0}
 --- !u!4 &1719731498

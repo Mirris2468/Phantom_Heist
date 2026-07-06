@@ -14,7 +14,6 @@ public class SecurityCamera : MonoBehaviour
 
     private void Start()
     {
-        // 🔥 ESTA es la clave: tomamos la rotación real del editor
         baseRotation = transform.rotation;
 
         leftRotation = baseRotation * Quaternion.Euler(0f, 0f, rotationAngle);
@@ -52,10 +51,6 @@ public class SecurityCamera : MonoBehaviour
 
         transform.rotation = target;
     }
-
-// =========================
-// TU LÓGICA ORIGINAL
-// =========================
 
 private void OnTriggerStay2D(Collider2D other)
     {

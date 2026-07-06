@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: -7694645518920012278}
   - component: {fileID: -4342022290572071227}
   - component: {fileID: -1063727427045559688}
+  - component: {fileID: 1313102834366109094}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Player
@@ -434,6 +435,7 @@ MonoBehaviour:
   trankGunSkill: {fileID: -1063727427045559688}
   empGunSkill: {fileID: -7694645518920012278}
   hammerSkill: {fileID: -4342022290572071227}
+  distractionSkill: {fileID: 1313102834366109094}
 --- !u!114 &-7694645518920012278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,6 +483,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrankGunSkill
   projectilePrefab: {fileID: 1912557163128445589, guid: 3116108bd0189cd4087609d5798d96c1, type: 3}
+  firePoint: {fileID: 2950157717459893834}
+  maxUses: 5
+  cooldown: 15
+--- !u!114 &1313102834366109094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090683886876411082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b5386205c70134692746148ab0fc2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DistractionSkill
+  projectilePrefab: {fileID: 8996641420552837719, guid: 786c0b9028ba03642876e7e6d7958873, type: 3}
   firePoint: {fileID: 2950157717459893834}
   maxUses: 5
   cooldown: 15

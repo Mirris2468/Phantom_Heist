@@ -34,5 +34,6 @@ public enum SkillType
     Punch,
     TrankGun,
     EMPGun,
-    Hammer
+    Hammer,
+    Distraction
 }

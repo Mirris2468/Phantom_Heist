@@ -22,4 +22,4 @@ MonoBehaviour:
   upgradedCooldown: 20
   uses: 3
   upgradedUses: 6
-  skillType: 0
+  skillType: 5
