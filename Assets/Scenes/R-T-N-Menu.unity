@@ -4635,6 +4635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelSelector
   availableLevels:
   - Level_Joyeria
+  - Level_Banco
   levelButtons:
   - {fileID: 986869665}
   - {fileID: 1744446945}

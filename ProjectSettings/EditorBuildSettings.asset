@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/F-R-Menu.unity
     guid: 06a664bcac3d69440aa1b96a65c91d1c
+  - enabled: 1
+    path: Assets/Scenes/Level_Banco/Level_Banco.unity
+    guid: 825cb52078141cb45b25c3d75a0ae4e3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
