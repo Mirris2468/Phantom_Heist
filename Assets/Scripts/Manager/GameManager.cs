@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     private bool objectiveCompleted;
     private float levelTimer;
 
-    public int selectedCharacter;
+    public int selectedCharacter = -1;
     public int money;
 
     public bool firstSkillFree = true;
@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        selectedCharacter = -1;
 
         slot1Skill = null;
         slot2Skill = null;

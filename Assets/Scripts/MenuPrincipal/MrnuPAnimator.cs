@@ -6,11 +6,18 @@ public class MenuPAnimator : MonoBehaviour
     public Animator characterMenuAnimator;
     public Animator optionsMenuAnimator;
 
+    [Header("Imágenes")]
+    public GameObject[] characterImages;
+
     // ===== MAIN -> CHARACTER =====
     public void OpenCharacterMenu()
     {
+        Debug.Log("Personaje seleccionado: " + GameManager.Instance.selectedCharacter);
+
         mainMenuAnimator.SetTrigger("Exit");
         characterMenuAnimator.SetTrigger("Enter");
+
+        MostrarPersonajeSeleccionado();
     }
 
     // ===== CHARACTER -> MAIN =====
@@ -18,6 +25,8 @@ public class MenuPAnimator : MonoBehaviour
     {
         characterMenuAnimator.SetTrigger("Exit");
         mainMenuAnimator.SetTrigger("Enter");
+
+        OcultarTodos();
     }
 
     // ===== MAIN -> OPTIONS =====
@@ -32,5 +41,30 @@ public class MenuPAnimator : MonoBehaviour
     {
         optionsMenuAnimator.SetTrigger("Exit");
         mainMenuAnimator.SetTrigger("Enter");
+    }
+
+
+    public void SeleccionarPersonaje(int index)
+    {
+        GameManager.Instance.selectedCharacter = index;
+        MostrarPersonajeSeleccionado();
+    }
+
+    private void MostrarPersonajeSeleccionado()
+    {
+        OcultarTodos();
+
+        int index = GameManager.Instance.selectedCharacter;
+
+        if (index >= 0 && index < characterImages.Length)
+        {
+            characterImages[index].SetActive(true);
+        }
+    }
+
+    private void OcultarTodos()
+    {
+        foreach (GameObject img in characterImages)
+            img.SetActive(false);
     }
 }

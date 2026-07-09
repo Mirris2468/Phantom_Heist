@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Lanza un objeto lo suficientemente ruidoso como para atraer al guardia
     mas cercano!
   mejora: Trae contigo una bolsa llena de objetos y lanza el DOBLE de objetos!
-  icon: {fileID: 0}
+  icon: {fileID: -7391833662317250257, guid: 757301fe10ad4c1459acbfbb4acd110e, type: 3}
   cost: 10
   cooldown: 20
   upgradedCooldown: 20

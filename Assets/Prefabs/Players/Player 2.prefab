@@ -473,7 +473,7 @@ MonoBehaviour:
   breakDistance: 1.5
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!114 &-1063727427045559688
 MonoBehaviour:
   m_ObjectHideFlags: 0

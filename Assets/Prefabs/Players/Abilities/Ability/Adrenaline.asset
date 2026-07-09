@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Inyectate con una poderosa droga que te permite moverte el doble de
     rapido por un tiempo limitado!
   mejora: Consigue este estuche para poder llevar MULTIPLES inyecciones a la vez!
-  icon: {fileID: 0}
+  icon: {fileID: 7043189815086291508, guid: 50807cf18e445cc41b4492560fe86a81, type: 3}
   cost: 10
   cooldown: 25
   upgradedCooldown: 25

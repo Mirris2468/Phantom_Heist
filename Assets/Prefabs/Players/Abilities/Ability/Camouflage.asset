@@ -16,7 +16,7 @@ MonoBehaviour:
   description: "Escondete a la vista de todos con este artilugio! \nEs lo ultimo
     de tecnologia en el espionaje e infiltraciones en cubierto!"
   mejora: Mejora el material permitiendo utilizar este artilugio el DOBLE de rapido!
-  icon: {fileID: 0}
+  icon: {fileID: 3510797253803120724, guid: 5cbda31dfeafe134cbf9c9a2e45f3c48, type: 3}
   cost: 5
   cooldown: 30
   upgradedCooldown: 15

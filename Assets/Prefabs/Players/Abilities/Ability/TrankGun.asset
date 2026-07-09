@@ -19,7 +19,7 @@ MonoBehaviour:
     No
     falles!'
   mejora: Mejora la cuerda para poder lanzar tus dardos el DOBLE de RAPIDO
-  icon: {fileID: 0}
+  icon: {fileID: 1222764623855535858, guid: 75349770d35a13e4eb96a187da7614ee, type: 3}
   cost: 8
   cooldown: 12
   upgradedCooldown: 6
